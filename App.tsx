@@ -1,7 +1,7 @@
 import { StatusBar } from 'expo-status-bar'
 import * as SplashScreen from 'expo-splash-screen'
 import { StyleSheet, View } from 'react-native'
-import { Button, Input } from '@core'
+import { Button, Input, NavigationApp } from '@core'
 import { useFonts } from 'expo-font'
 import { useEffect } from 'react'
 
@@ -22,12 +22,7 @@ export default function App() {
     return null
   }
 
-  return (
-    <View style={styles.container}>
-      <Input value='' onChange={console.log} />
-      <Button title='Hello' onPress={() => console.log('Hello')} />
-    </View>
-  )
+  return <NavigationApp />
 }
 
 const styles = StyleSheet.create({
