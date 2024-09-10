@@ -9,7 +9,7 @@ export default function App() {
   const [loaded, error] = useFonts({
     'PlaypenSans-Bold': require('./assets/fonts/PlaypenSans-Bold.ttf'),
     'PlaypenSans-Light': require('./assets/fonts/PlaypenSans-Light.ttf'),
-    'Regular-Bold': require('./assets/fonts/PlaypenSans-Regular.ttf'),
+    'Regular-Regular': require('./assets/fonts/PlaypenSans-Regular.ttf'),
   })
 
   useEffect(() => {

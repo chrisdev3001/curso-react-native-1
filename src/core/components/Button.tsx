@@ -25,5 +25,6 @@ const styles = StyleSheet.create({
   txt: {
     color: COLORS.white,
     fontSize: 24,
+    textAlign: 'center',
   },
 })

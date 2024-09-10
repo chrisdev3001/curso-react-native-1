@@ -18,7 +18,7 @@ export const Input = ({ value, onChange }: InputProps) => {
 
 const styles = StyleSheet.create({
   input: {
-    width: 300,
+    width: '100%',
     padding: 16,
 
     backgroundColor: '#fff', // Fondo blanco para un look más limpio
