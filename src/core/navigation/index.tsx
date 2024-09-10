@@ -3,7 +3,12 @@ import { NavigationContainer } from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { Text } from 'react-native'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
-import { LoginScreen, RegisterScreen } from '@containers'
+import {
+  HomeScreen,
+  LoginScreen,
+  ProfileScreen,
+  RegisterScreen,
+} from '@containers'
 
 const hideHeader = { headerShown: false }
 
@@ -32,14 +37,10 @@ export function NavigationApp() {
     // funcion que renderiza stack de la aplicacion
     return (
       <Tab.Navigator>
-        <Tab.Screen
-          name='Home'
-          component={() => <Text>Hola desde Home</Text>}
-          options={hideHeader}
-        />
+        <Tab.Screen name='Home' component={HomeScreen} options={hideHeader} />
         <Tab.Screen
           name='Profile'
-          component={() => <Text>Hola desde Profile</Text>}
+          component={ProfileScreen}
           options={hideHeader}
         />
       </Tab.Navigator>
@@ -48,7 +49,7 @@ export function NavigationApp() {
 
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName='Authentication'>
+      <Stack.Navigator initialRouteName='MainApp'>
         <Stack.Screen
           name='Authentication'
           component={AuthStack}
