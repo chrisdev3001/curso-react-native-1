@@ -21,6 +21,7 @@ export const HomeScreen = ({ route }: any) => {
 
   console.log(token, 'token')
 
+  const [loading, setLoading] = useState(false)
   const [users, setUsers] = useState<User[]>([])
   const { top } = useSafeAreaInsets()
 
@@ -36,6 +37,23 @@ export const HomeScreen = ({ route }: any) => {
       .catch(error => Alert.alert('Ha ocurrido un error', error.message))
   }, [])
 
+  function deleteUserById(id: number) {
+    setLoading(true)
+
+    makeHttpRequest({
+      host: URL_API_REST,
+      path: '/user/' + id,
+      method: 'DELETE',
+      token,
+    })
+      .then(() => {
+        const updatedUsers = users.filter(user => user.id !== id)
+        setUsers(updatedUsers)
+      })
+      .catch(error => Alert.alert('Ha ocurrido un error', error.message))
+      .finally(() => setLoading(false))
+  }
+
   console.log(JSON.stringify(users, null, 2))
 
   return (
@@ -50,12 +68,13 @@ export const HomeScreen = ({ route }: any) => {
           <View style={{ flexDirection: 'row', gap: 16 }}>
             <Text>{item.name}</Text>
             <Text>{item.email}</Text>
-            <TouchableOpacity>
-              <Text>Editar</Text>
-            </TouchableOpacity>
-            <TouchableOpacity>
-              <Text>Eliminar</Text>
-            </TouchableOpacity>
+            {loading ? (
+              <Text>Elimando...</Text>
+            ) : (
+              <TouchableOpacity onPress={() => deleteUserById(item.id)}>
+                <Text style={{ color: 'red' }}>Eliminar</Text>
+              </TouchableOpacity>
+            )}
           </View>
         )}
         contentContainerStyle={{ gap: 30 }}
