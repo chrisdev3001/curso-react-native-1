@@ -18,7 +18,7 @@ export const LoginScreen = ({ navigation }: any) => {
 
     setLoading(true)
     try {
-      await makeHttpRequest({
+      const response = await makeHttpRequest({
         host: URL_API_REST,
         method: 'POST',
         path: '/login',
@@ -29,7 +29,10 @@ export const LoginScreen = ({ navigation }: any) => {
       })
 
       // navegar a la app
-      navigation.navigate('MainApp')
+      navigation.navigate('MainApp', {
+        screen: 'Home',
+        params: { token: response.jwt },
+      })
     } catch (error: any) {
       Alert.alert('Error', error.message)
     }

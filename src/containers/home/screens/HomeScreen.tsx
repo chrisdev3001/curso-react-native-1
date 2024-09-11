@@ -1,21 +1,42 @@
 import {
+  Alert,
   FlatList,
   StyleSheet,
   Text,
   TouchableOpacity,
   View,
 } from 'react-native'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
+import { makeHttpRequest, URL_API_REST } from '@core'
 
-const dummy_users = [
-  { id: 1, name: 'Jonh Doe', email: 'jonhdoe@test.com' },
-  { id: 2, name: 'Chris Vil', email: 'chrisvil@test.com' },
-  { id: 2, name: 'Danilo Lobos', email: 'danilo@test.com' },
-]
+interface User {
+  id: number
+  name: string
+  email: string
+}
 
-export const HomeScreen = () => {
+export const HomeScreen = ({ route }: any) => {
+  const token = route.params?.token
+
+  console.log(token, 'token')
+
+  const [users, setUsers] = useState<User[]>([])
   const { top } = useSafeAreaInsets()
+
+  useEffect(() => {
+    // primera vez que se renderiza nuestro componente (HomeScreen)
+    makeHttpRequest({
+      host: URL_API_REST,
+      path: '/user',
+      method: 'GET',
+      token,
+    })
+      .then(response => setUsers(response.users))
+      .catch(error => Alert.alert('Ha ocurrido un error', error.message))
+  }, [])
+
+  console.log(JSON.stringify(users, null, 2))
 
   return (
     <View style={[styles.container, { paddingTop: top }]}>
@@ -24,11 +45,11 @@ export const HomeScreen = () => {
       <Text>Lista de usuarios</Text>
 
       <FlatList
-        data={dummy_users}
+        data={users}
         renderItem={({ item }) => (
           <View style={{ flexDirection: 'row', gap: 16 }}>
-            <Text style={{}}>{item.name}</Text>
-            <Text style={{}}>{item.email}</Text>
+            <Text>{item.name}</Text>
+            <Text>{item.email}</Text>
             <TouchableOpacity>
               <Text>Editar</Text>
             </TouchableOpacity>
