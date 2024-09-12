@@ -1,9 +1,10 @@
 import { StatusBar } from 'expo-status-bar'
 import * as SplashScreen from 'expo-splash-screen'
 import { StyleSheet, View } from 'react-native'
-import { Button, Input, NavigationApp } from '@core'
+import { Button, Input } from '@core'
 import { useFonts } from 'expo-font'
 import { useEffect } from 'react'
+import { NavigationApp } from './navigation'
 
 export default function App() {
   const [loaded, error] = useFonts({

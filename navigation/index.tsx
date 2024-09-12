@@ -1,7 +1,6 @@
 import * as React from 'react'
 import { NavigationContainer } from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
-import { Text } from 'react-native'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import {
   HomeScreen,
@@ -9,6 +8,7 @@ import {
   ProfileScreen,
   RegisterScreen,
 } from '@containers'
+import MaterialIcons from '@expo/vector-icons/MaterialIcons'
 
 const hideHeader = { headerShown: false }
 
@@ -36,7 +36,23 @@ export function NavigationApp() {
   function MainApp() {
     // funcion que renderiza stack de la aplicacion
     return (
-      <Tab.Navigator>
+      <Tab.Navigator
+        screenOptions={({ route }) => ({
+          tabBarActiveTintColor: 'black',
+          tabBarInactiveTintColor: 'gray',
+          tabBarStyle: { height: 100 },
+          tabBarIcon: ({ focused, color, size }) => {
+            const iconName = route.name === 'Home' ? 'home' : 'person'
+            return (
+              <MaterialIcons
+                name={iconName}
+                size={32}
+                color={focused ? 'black' : 'gray'}
+                style={{ marginTop: 10 }}
+              />
+            )
+          },
+        })}>
         <Tab.Screen name='Home' component={HomeScreen} options={hideHeader} />
         <Tab.Screen
           name='Profile'
